@@ -1,0 +1,203 @@
+\documentclass{report}
+\usepackage[a4paper, total={7.5in, 10in}]{geometry}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsfonts}
+\usepackage{sectsty}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{stix}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{caption}
+
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{etoolbox}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\graphicspath{ {zdj} }
+\pagestyle{empty}
+
+\setlength{\parindent}{0pt}
+
+\newcommand\setItemnumber[1]{\setcounter{enumi}{\numexpr#1-1\relax}}
+
+
+
+\titlespacing*{\chapter}{0pt}{-35pt}{0pt}
+\titlespacing*{\section}{0pt}{-20pt}{10pt}
+\titlespacing*{\subsection}{0pt}{-20pt}{10pt}
+\titlespacing*{\subsubsection}{0pt}{0pt}{10pt}
+
+\titleformat{\chapter}[display]{\normalfont\Large\bfseries\filcenter}{}{10pt}{\Large}
+\titleformat{\section}[display]{\normalfont\large\bfseries\filcenter}{}{10pt}{\large}
+\titleformat{\subsection}[display]{\normalfont\normalsize\bfseries\filcenter}{}{10pt}{\normalsize}
+\titleformat{\subsubsection}[display]{\normalfont\small\bfseries}{}{10pt}{\small}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{Strona \thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\fancypagestyle{plain}{\pagestyle{fancy}}
+
+\fancyfoot[L]{Popławski Dawid, Michał Wyrzykowski}%
+\fancyhead[R]{}%
+
+
+\DeclareCaptionFormat{custom}
+{%
+	\textbf{#1#2}\textit{\small #3}
+}
+\renewcommand{\figurename}{Rys.}
+
+\captionsetup{format=custom,%
+				margin={5pt,5pt},%
+				justification=centering}
+\usepackage[T1]{fontenc}       % change font encoding to T1
+\usepackage[framed,numbered]{matlab-prettifier}
+
+
+
+\begin{document}
+	\begin{titlepage}
+		\begin{figure}[h]
+			\begin{minipage}[l]{.5\textwidth}%
+				\includegraphics[width=0.3\textwidth]{pwr_logo}
+			\end{minipage}%
+			\begin{minipage}[r]{.5\textwidth}%
+				\includegraphics[width=1\textwidth]{wit_logo}
+			\end{minipage}%
+		\end{figure}
+		
+		\vspace*{3mm}
+		
+		\begin{center}
+			\rule{\textwidth}{0.8pt}\\ 
+			\vspace*{6mm}
+			{\LARGE Platformy programistyczne .Net i Java - LAB1-2}\\
+			\vspace*{3mm}
+			\rule{\textwidth}{0.8pt}\\
+			
+			\vspace{1.5cm}
+			{\setstretch{2}
+				Politechnika Wrocławska
+				
+				Wydział Informatyki i telekomunikacji
+				
+				Kierunek: Informatyczne systemy automatyki
+				
+				grupa nr 2
+				
+				\href{https://github.com/wernexnrs/264254-.NET-i-Java}{github.com/wernexnrs/264254-.NET-i-Java}
+				
+			}
+		\end{center}
+		
+		\vspace*{2cm}
+		
+		\begin{flushright}
+			{\setstretch{2}
+				Dawid Popławski - $264254$
+				
+				Termin zajęc: Środa godz. $17^{\underline{05}}$ - $18^{\underline{45}}$ 
+				
+				Prowadzący: mgr inż. Michał Jaroszczuk
+				
+			}
+			
+		\end{flushright}
+		
+		\vfill
+		
+\end{titlepage}
+
+\tableofcontents
+\chapter{Opis projektu}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempus nisl enim, venenatis rutrum mauris molestie in. Duis pretium et mi vitae pretium. Nullam malesuada nunc ac lectus viverra, a euismod purus iaculis. Aenean et nisi sit amet eros tristique mollis. Mauris sed turpis ex. In in odio sit amet nisl varius varius. Aliquam faucibus ante non risus vulputate, ornare commodo quam commodo.\\
+
+Aliquam et faucibus elit, eget pulvinar enim. Phasellus fermentum lorem eget leo vehicula, eu euismod justo convallis. Vestibulum molestie faucibus nunc eu efficitur. Mauris egestas orci lorem, eu dapibus erat volutpat ut. Vestibulum tincidunt pharetra mi, id scelerisque est dictum ut. In euismod aliquam turpis, at elementum odio pulvinar eu. Duis sit amet lorem aliquam, mollis mi quis, tincidunt ante. Sed congue eu ipsum bibendum rutrum. Cras tincidunt vulputate dui, quis elementum felis accumsan ut. Aenean a pellentesque erat, nec rhoncus ex. Nam tempor fermentum sollicitudin.\\
+
+Praesent maximus finibus purus at blandit. Aliquam pellentesque dapibus libero vel volutpat. Donec venenatis tortor erat, a consequat eros aliquet vitae. In consequat ornare leo, et tristique sem commodo mollis. Nunc et tellus tellus. In mollis euismod egestas. Integer ante tellus, varius sit amet tempus quis, efficitur quis nulla. Cras eu augue nec diam lacinia porttitor. Fusce lacinia ligula libero, ac placerat augue sollicitudin vitae. Integer sed rhoncus magna, a rutrum ex.
+\chapter{Drzewa projektów}
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.6]{zdj/cmd_drzewo}
+	\caption{Drzewo projektu aplikacji konsolowej.}
+\end{figure}
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.6]{zdj/testy_drzewo}
+	\caption{Drzewo projektu testów jednostkowych.}
+\end{figure}
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.6]{zdj/form_drzewo}
+	\caption{Drzewo projektu aplikacji okienkowej.}
+\end{figure}
+
+\chapter{Kluczowe części kodu}
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.6]{zdj/algorytm_zachlanny}
+	\caption{Kod rozwiązujący problem plecakowy.}
+\end{figure}
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.6]{zdj/form_code}
+	\caption{Kod aplikacji okienkowej.}
+\end{figure}
+
+Zrealizowanie testy jednostkowe:
+
+\begin{itemize}
+	\item Sprawdzenie, czy jeśli co najmniej jeden przedmiot spełnia ograniczenia, to zwrócono co najmniej jeden element.
+	\item Sprawdzenie, czy jeśli żaden przedmiot nie spełnia ograniczeń, to zwrócono puste rozwiązanie.
+	\item Sprawdzenie, czy kolejność przedmiotów ma wpływa na znalezione rozwiązanie.
+	\item Sprawdzenie poprawności wyniku dla konkretnej instancji.
+	\item Sprawdzenie, czy jeżeli plecak nie ma miejsca to nie będzie w nim przedmiotów.
+	\item Sprawdzenie, czy jeżeli plecak ma bardzo dużo miejsca to wszystkie przedmioty do niego trafiły.
+	\item Sprawdzenie, czy algorytm działa gdy nie ma żadnych przedmiotów.
+	\item Sprawdzenie, czy ilość wylosowanych przedmiotów zgadza się z ilością obiektów w liście.
+\end{itemize}
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.6]{zdj/test_first}
+	\caption{Testy jednostkowe.}
+\end{figure}
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.6]{zdj/test_second}
+	\caption{Testy jednostkowe.}
+\end{figure}
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.6]{zdj/test_third}
+	\caption{Testy jednostkowe.}
+\end{figure}
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.7]{zdj/test_result}
+	\caption{Wynik testów jednostkowych.}
+\end{figure}
+\end{document}

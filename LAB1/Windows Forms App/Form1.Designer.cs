@@ -47,24 +47,19 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 23);
             textBox1.TabIndex = 0;
-            textBox1.Tag = "";
-            textBox1.TextChanged += textBox1_TextChanged;
-            // 
+            textBox1.Tag = "";            // 
             // textBox2
             // 
             textBox2.Location = new Point(12, 71);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 1;
-            textBox2.TextChanged += textBox2_TextChanged;
-            // 
+            textBox2.TabIndex = 1;            // 
             // textBox3
             // 
             textBox3.Location = new Point(12, 115);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(100, 23);
             textBox3.TabIndex = 2;
-            textBox3.TextChanged += textBox3_TextChanged;
             // 
             // button1
             // 
@@ -83,7 +78,6 @@
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(200, 219);
             textBox4.TabIndex = 4;
-            textBox4.TextChanged += textBox4_TextChanged_1;
             // 
             // textBox5
             // 
@@ -91,7 +85,7 @@
             textBox5.Multiline = true;
             textBox5.Name = "textBox5";
             textBox5.ScrollBars = ScrollBars.Vertical;
-            textBox5.Size = new Size(264, 397);
+            textBox5.Size = new Size(451, 397);
             textBox5.TabIndex = 5;
             // 
             // label1
@@ -102,7 +96,6 @@
             label1.Size = new Size(36, 15);
             label1.TabIndex = 6;
             label1.Text = "result";
-            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -112,7 +105,6 @@
             label2.Size = new Size(51, 15);
             label2.TabIndex = 7;
             label2.Text = "instance";
-            label2.Click += label2_Click;
             // 
             // label3
             // 
@@ -122,7 +114,6 @@
             label3.Size = new Size(95, 15);
             label3.TabIndex = 8;
             label3.Text = "number of items";
-            label3.Click += label3_Click;
             // 
             // label4
             // 
@@ -146,7 +137,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(538, 450);
+            ClientSize = new Size(718, 450);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -161,7 +152,6 @@
             Name = "Form1";
             Tag = "k";
             Text = "Form1";
-            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
