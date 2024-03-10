@@ -52,7 +52,7 @@
 \renewcommand{\footrulewidth}{1pt}
 \fancypagestyle{plain}{\pagestyle{fancy}}
 
-\fancyfoot[L]{Popławski Dawid, Michał Wyrzykowski}%
+\fancyfoot[L]{Popławski Dawid}%
 \fancyhead[R]{}%
 
 
@@ -124,13 +124,27 @@
 \end{titlepage}
 
 \tableofcontents
-\chapter{Opis projektu}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempus nisl enim, venenatis rutrum mauris molestie in. Duis pretium et mi vitae pretium. Nullam malesuada nunc ac lectus viverra, a euismod purus iaculis. Aenean et nisi sit amet eros tristique mollis. Mauris sed turpis ex. In in odio sit amet nisl varius varius. Aliquam faucibus ante non risus vulputate, ornare commodo quam commodo.\\
 
-Aliquam et faucibus elit, eget pulvinar enim. Phasellus fermentum lorem eget leo vehicula, eu euismod justo convallis. Vestibulum molestie faucibus nunc eu efficitur. Mauris egestas orci lorem, eu dapibus erat volutpat ut. Vestibulum tincidunt pharetra mi, id scelerisque est dictum ut. In euismod aliquam turpis, at elementum odio pulvinar eu. Duis sit amet lorem aliquam, mollis mi quis, tincidunt ante. Sed congue eu ipsum bibendum rutrum. Cras tincidunt vulputate dui, quis elementum felis accumsan ut. Aenean a pellentesque erat, nec rhoncus ex. Nam tempor fermentum sollicitudin.\\
+\chapter{Opis problemu}
 
-Praesent maximus finibus purus at blandit. Aliquam pellentesque dapibus libero vel volutpat. Donec venenatis tortor erat, a consequat eros aliquet vitae. In consequat ornare leo, et tristique sem commodo mollis. Nunc et tellus tellus. In mollis euismod egestas. Integer ante tellus, varius sit amet tempus quis, efficitur quis nulla. Cras eu augue nec diam lacinia porttitor. Fusce lacinia ligula libero, ac placerat augue sollicitudin vitae. Integer sed rhoncus magna, a rutrum ex.
-\chapter{Drzewa projektów}
+\vspace{5pt}
+Problem plecakowy to klasyczny problem optymalizacyjny, który polega na wybraniu zestawu przedmiotów o maksymalnej wartości, tak aby suma ich wag nie przekraczała określonej pojemności plecaka.\\
+
+Dla każdego przedmiotu należało określić wartość binarną $x_i \in {0,1}$, gdzie "0" oznaczało, że przedmiot nie zmieścił się do plecaka. Pojemność plecaka jest ograniczona pewną ustaloną na początku wartością, gdzie:
+
+\[
+	\sum_{i=1}^{n}x_iw_i \leq C
+\]
+Zadaniem optymalizacyjnym było:
+
+\[
+	max\sum_{i=1}^{n}x_iv_i, \hspace*{15pt}\text{gdzie } v_i \text{--} \text{wartość, } w_i \text{--} \text{waga}
+\]
+Na potrzeby projektu należało założyć, że wartość i waga pojedyńczego przedmiotu będzie mieścić się w zakresie $v_i,w_i \in <1,10>$
+
+\chapter{Aplikacja konsolowa}
+
+\section{Drzewo projektu}
 
 \begin{figure}[H]%
 	\centering
@@ -138,19 +152,9 @@ Praesent maximus finibus purus at blandit. Aliquam pellentesque dapibus libero v
 	\caption{Drzewo projektu aplikacji konsolowej.}
 \end{figure}
 
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.6]{zdj/testy_drzewo}
-	\caption{Drzewo projektu testów jednostkowych.}
-\end{figure}
+\section{Problem.cs}
 
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.6]{zdj/form_drzewo}
-	\caption{Drzewo projektu aplikacji okienkowej.}
-\end{figure}
-
-\chapter{Kluczowe części kodu}
+W tym pliku definiujemy klasę problem, która reprezentuje i rozwiązuję problem plecakowy.
 
 \begin{figure}[H]%
 	\centering
@@ -158,11 +162,26 @@ Praesent maximus finibus purus at blandit. Aliquam pellentesque dapibus libero v
 	\caption{Kod rozwiązujący problem plecakowy.}
 \end{figure}
 
+Główny algorytm iteruje po wszystkich elementach listy i sprawdza, czy waga danego przedmiotu jest mniejsza bądź równa aktualnej pojemności plecaka. W przypadku spełnienia warunku pole "X" tego obiektu zmieniane jest na 1, od pojemności plecaka odejmowana zostaje waga wrzuconego przedmiotu oraz zliczania jest suma całkowitej wartości, całkowitej wagi, do tego zapisywany jest indeks przedmiotu i wstawiany do osobnej listy.
+
+
+\chapter{Testy jednostkowe}
+
+\section{Drzewo projektu}
+
 \begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.6]{zdj/form_code}
-	\caption{Kod aplikacji okienkowej.}
+	\begin{minipage}{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.7]{zdj/testy_drzewo}
+		\caption{Drzewo projektu testów jednostkowych.}
+	\end{minipage}
+	\begin{minipage}{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.7]{zdj/test_result}
+		\caption{Wynik testów jednostkowych.}
+	\end{minipage}
 \end{figure}
+
 
 Zrealizowanie testy jednostkowe:
 
@@ -179,13 +198,13 @@ Zrealizowanie testy jednostkowe:
 
 \begin{figure}[H]%
 	\centering
-	\includegraphics[scale=0.6]{zdj/test_first}
+	\includegraphics[scale=0.5]{zdj/test_first}
 	\caption{Testy jednostkowe.}
 \end{figure}
 
 \begin{figure}[H]%
 	\centering
-	\includegraphics[scale=0.6]{zdj/test_second}
+	\includegraphics[scale=0.5]{zdj/test_second}
 	\caption{Testy jednostkowe.}
 \end{figure}
 
@@ -195,9 +214,24 @@ Zrealizowanie testy jednostkowe:
 	\caption{Testy jednostkowe.}
 \end{figure}
 
+\chapter{Aplikacja okienkowa}
+
+Aplikacja posiada proste zabezpieczenie w przypadku wpisania do texboxa innej wartości niż liczby. 
+
+\section{Drzewo projektu}
+
 \begin{figure}[H]%
 	\centering
-	\includegraphics[scale=0.7]{zdj/test_result}
-	\caption{Wynik testów jednostkowych.}
+	\includegraphics[scale=0.6]{zdj/form_drzewo}
+	\caption{Drzewo projektu aplikacji okienkowej.}
 \end{figure}
+
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[scale=0.6]{zdj/form_code}
+	\caption{Kod aplikacji okienkowej.}
+\end{figure}
+
+
 \end{document}

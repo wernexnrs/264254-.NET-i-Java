@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace LAB1_problem_plecakowy
 {
-    internal class item{
-        private double weight;
-        private double value;
-        private double worth;
-        private int x = 0;
+    internal class item(double value, double weight, int x)
+    {
+        private double weight = weight;
+        private double value = value;
+        private double worth = (double)value / weight;
+        private int x = x;
         public double Weight {
             get{ return weight; }
             set { weight = value; } 
@@ -28,14 +29,6 @@ namespace LAB1_problem_plecakowy
             get { return x; }
             set { x = value; }
         }
-        public item(double value, double weight, int x)
-        {
-            this.value = value;
-            this.weight = weight;
-            this.worth = (double)value/weight;
-            this.x = x;
-        }
-
         public override string ToString()
         {
             return $"Weight: {Weight}, Value: {Value}, Worth: {Worth}, X: {X}";

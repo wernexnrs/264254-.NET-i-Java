@@ -40,7 +40,7 @@ namespace MSTest_Project
             problem problem = new(15, 2);
             Result result = problem.Solve(capacity);
             problem problem_reversed = problem;
-            problem_reversed.items.OrderBy(item => item.Weight);
+            _ = problem_reversed.items.OrderBy(item => item.Weight);
             Result result_reversed = problem_reversed.Solve(capacity);
             Debug.Assert(result_reversed != result);
         }
