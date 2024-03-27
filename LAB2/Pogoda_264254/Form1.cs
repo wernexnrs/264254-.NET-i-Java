@@ -9,13 +9,9 @@ namespace Pogoda_264254
     {
         public Form1()
         {
-           
-
             InitializeComponent();
             InitializeFormBackground();
             LoadWeatherDataAsync();
-            
-
         }
         public static async Task GetWeatherAsync()
         {
@@ -23,15 +19,21 @@ namespace Pogoda_264254
             string apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=51.107883&lon=17.038538&appid=196db3870975458e76528bce29610b2c";
             string response = await client.GetStringAsync(apiUrl);
 
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            WeatherData weatherData = JsonSerializer.Deserialize<WeatherData>(response, options);
 
-            var weatherData = JsonSerializer.Deserialize<WeatherData>(response);
 
 
             using (var context = new DatabaseContext())
             {
                 context.WeatherData.Add(weatherData);
+
                 await context.SaveChangesAsync();
             }
+
         }
 
         private void PictureBox_Paint(object sender, PaintEventArgs e)
@@ -76,6 +78,7 @@ namespace Pogoda_264254
         {
             await GetWeatherAsync();
 
+            
             using (var context = new DatabaseContext())
             {
                 var weatherData = await context.WeatherData.FirstOrDefaultAsync();
@@ -84,13 +87,20 @@ namespace Pogoda_264254
                 {
                     this.Invoke(new Action(() => {
                         label1.Text = weatherData.name;
+                        label2.Text = weatherData.coord.lon.ToString();
+                        label2.Text = weatherData.coord.lat.ToString();
                     }));
                 }
                 else
                 {
-                    label1.Text = "Dane nie zosta³y znalezione.";
+                    label1.Text = "Dane nie zostaly znalezione.";
                 }
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

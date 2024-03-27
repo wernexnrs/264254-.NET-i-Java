@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace Pogoda_264254
@@ -28,14 +29,13 @@ namespace Pogoda_264254
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=WeatherData.db");
+            optionsBuilder.UseSqlite("Data Source=database2.db");
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // key
             modelBuilder.Entity<WeatherData>()
-                .HasKey(w => w.Id);
+                .HasKey(w => w.unique_id);
  
 
             //1-1
@@ -43,6 +43,7 @@ namespace Pogoda_264254
                 .HasOne<main>(w => w.main)
                 .WithOne()
                 .HasForeignKey<main>(m => m.WeatherDataId);
+
 
             //1-1
             modelBuilder.Entity<WeatherData>()
@@ -72,10 +73,17 @@ namespace Pogoda_264254
     }
     public class WeatherData
     {
-        public int? Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int unique_id { get; set; }
+
+        [JsonPropertyName("id")]
+        public int id { get; set; }
         public main main { get; set; }
         public List <weather> weather { get; set; }
         public wind wind { get; set; }
+        [JsonPropertyName("coord")]
+
         public coord coord { get; set; }
         public sys sys { get; set; }
         public clouds clouds { get; set; }
@@ -88,7 +96,7 @@ namespace Pogoda_264254
         public int dt { get; set; }
     }
 
-    public partial class main
+    public class main
     {
         
         public int? Id { get; set; }
@@ -102,7 +110,7 @@ namespace Pogoda_264254
         public int humidity { get; set; }
     }
 
-    public partial class wind
+    public class wind
     {
         public int? Id { get; set; }
         [ForeignKey("WeatherDataId")]
@@ -111,16 +119,20 @@ namespace Pogoda_264254
         public double deg { get; set; }
     }
 
-    public partial class coord
+    public class coord
     {
         public int? Id { get; set; }
         [ForeignKey("WeatherDataId")]
         public int? WeatherDataId { get; set; }
-        public double lon { get; set; }
-        public double lat { get; set; }
+        [JsonPropertyName("lon")]
+
+        public float lon { get; set; }
+        [JsonPropertyName("lat")]
+
+        public float lat { get; set; }
     }
 
-    public partial class weather
+    public class weather
     {
         public int? Id { get; set; }
         [ForeignKey("WeatherDataId")]
@@ -129,14 +141,14 @@ namespace Pogoda_264254
         public string description { get; set; }
         public string icon { get; set; }
     }
-    public partial class clouds
+    public class clouds
     {
         public int? Id { get; set; }
         [ForeignKey("WeatherDataId")]
         public int? WeatherDataId { get; set; }
         public int all { get; set; }
     }
-    public partial class sys
+    public class sys
     {
         public int? Id { get; set; }
         [ForeignKey("WeatherDataId")]
