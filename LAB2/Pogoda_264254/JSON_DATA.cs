@@ -29,21 +29,19 @@ namespace Pogoda_264254
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=database2.db");
+            optionsBuilder.UseSqlite("Data Source=C:\\Users\\Admin\\Desktop\\.NET i Java\\LAB2\\Pogoda_264254\\WeatherDataBase.db");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // key
+            //key
             modelBuilder.Entity<WeatherData>()
-                .HasKey(w => w.unique_id);
- 
+                .HasKey(w => w.PrimaryKey);
 
             //1-1
             modelBuilder.Entity<WeatherData>()
                 .HasOne<main>(w => w.main)
                 .WithOne()
                 .HasForeignKey<main>(m => m.WeatherDataId);
-
 
             //1-1
             modelBuilder.Entity<WeatherData>()
@@ -66,8 +64,6 @@ namespace Pogoda_264254
                .WithOne()
                .HasForeignKey<clouds>(w => w.WeatherDataId);
 
-
-
             base.OnModelCreating(modelBuilder);
         }
     }
@@ -75,31 +71,57 @@ namespace Pogoda_264254
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int unique_id { get; set; }
-
-        [JsonPropertyName("id")]
+        public int PrimaryKey { get; set; }
         public int id { get; set; }
         public main main { get; set; }
         public List <weather> weather { get; set; }
         public wind wind { get; set; }
-        [JsonPropertyName("coord")]
-
         public coord coord { get; set; }
         public sys sys { get; set; }
         public clouds clouds { get; set; }
         public string name { get; set; }
+
         [JsonPropertyName("base")]
         public string Base { get; set; }
         public int visibility { get; set; }
         public int timezone { get; set; }
         public int cod { get; set; }
         public int dt { get; set; }
+
+        public override string ToString()
+        {
+            var weatherConditions = weather != null && weather.Any()
+                                    ? string.Join(", ", weather.Select(w => $"{w.main} ({w.description})"))
+                                    : "No weather data";
+
+            double tempInCelsius = main.temp - 273.15;
+            double feelsLikeInCelsius = main.feels_like - 273.15;
+
+            TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
+            DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(DateTimeOffset.FromUnixTimeSeconds(dt).UtcDateTime, timeZone);
+
+
+            return $"Weather Data for {name} at {localTime.ToString()}: {Environment.NewLine}" +
+                   $"- Temperature: {tempInCelsius:F1}°C (Feels like {feelsLikeInCelsius:F1}°C){Environment.NewLine}" +
+                   $"- Conditions: {weatherConditions}{Environment.NewLine}" +
+                   $"- Wind: {wind.speed} m/s at {wind.deg} degrees{Environment.NewLine}" +
+                   $"- Humidity: {main.humidity}%{Environment.NewLine}" +
+                   $"- Pressure: {main.pressure} hPa{Environment.NewLine}" +
+                   $"- Visibility: {visibility} meters{Environment.NewLine}" +
+                   $"- Cloudiness: {clouds.all}%{Environment.NewLine}" +
+                   $"- Sunrise: {DateTimeOffset.FromUnixTimeSeconds(sys.sunrise).ToLocalTime():HH:mm:ss}{Environment.NewLine}" +
+                   $"- Sunset: {DateTimeOffset.FromUnixTimeSeconds(sys.sunset).ToLocalTime():HH:mm:ss}{Environment.NewLine}";
+        }
+
+
     }
 
-    public class main
+    public partial class main
     {
-        
-        public int? Id { get; set; }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PrimaryKey { get; set; }
         [ForeignKey("WeatherDataId")]
         public int? WeatherDataId { get; set; }
         public double temp { get; set; }
@@ -108,20 +130,26 @@ namespace Pogoda_264254
         public double temp_max { get; set; }
         public int pressure { get; set; }
         public int humidity { get; set; }
+
+
     }
 
-    public class wind
+    public partial class wind
     {
-        public int? Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PrimaryKey { get; set; }
         [ForeignKey("WeatherDataId")]
         public int? WeatherDataId { get; set; }
         public double speed { get; set; }
         public double deg { get; set; }
     }
 
-    public class coord
+    public partial class coord
     {
-        public int? Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PrimaryKey { get; set; }
         [ForeignKey("WeatherDataId")]
         public int? WeatherDataId { get; set; }
         [JsonPropertyName("lon")]
@@ -132,27 +160,34 @@ namespace Pogoda_264254
         public float lat { get; set; }
     }
 
-    public class weather
+    public partial class weather
     {
-        public int? Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PrimaryKey { get; set; }
         [ForeignKey("WeatherDataId")]
         public int? WeatherDataId { get; set; }
         public string main { get; set; }
         public string description { get; set; }
         public string icon { get; set; }
     }
-    public class clouds
+    public partial class clouds
     {
-        public int? Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PrimaryKey { get; set; }
         [ForeignKey("WeatherDataId")]
         public int? WeatherDataId { get; set; }
         public int all { get; set; }
     }
-    public class sys
-    {
-        public int? Id { get; set; }
+    public partial class sys {
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PrimaryKey { get; set; }
+        public int id { get; set; }
         [ForeignKey("WeatherDataId")]
-        public int? WeatherDataId { get; set; }
+        public int WeatherDataId { get; set; }
         public int type { get; set; }
         public int sunrise { get; set; }
         public int sunset { get; set; }

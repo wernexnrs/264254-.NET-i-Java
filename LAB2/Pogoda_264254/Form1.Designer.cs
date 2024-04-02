@@ -29,96 +29,147 @@
         private void InitializeComponent()
         {
             textBox1 = new TextBox();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
+            city_name_label = new Label();
+            lon_cords = new TextBox();
+            button1 = new Button();
+            lat_cords = new TextBox();
+            lon_label = new Label();
+            sort_asc = new Button();
+            sort_desc = new Button();
+            textBox2 = new TextBox();
+            data_base_label = new Label();
+            loc_label = new Label();
+            lat_label = new Label();
             SuspendLayout();
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(1127, 491);
-            textBox1.Margin = new Padding(6);
+            textBox1.Location = new Point(600, 88);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(418, 307);
+            textBox1.ScrollBars = ScrollBars.Vertical;
+            textBox1.Size = new Size(359, 517);
             textBox1.TabIndex = 0;
             // 
-            // label1
+            // city_name_label
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(1250, 52);
-            label1.Margin = new Padding(6, 0, 6, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(155, 65);
-            label1.TabIndex = 1;
-            label1.Text = "label1";
-            label1.Click += label1_Click;
+            city_name_label.AutoSize = true;
+            city_name_label.BackColor = Color.Transparent;
+            city_name_label.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            city_name_label.Location = new Point(485, 9);
+            city_name_label.Name = "city_name_label";
+            city_name_label.Size = new Size(0, 32);
+            city_name_label.TabIndex = 1;
             // 
-            // label2
+            // lon_cords
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(1115, 153);
-            label2.Name = "label2";
-            label2.Size = new Size(78, 32);
-            label2.TabIndex = 2;
-            label2.Text = "label2";
+            lon_cords.Location = new Point(731, 696);
+            lon_cords.Name = "lon_cords";
+            lon_cords.PlaceholderText = "lon";
+            lon_cords.Size = new Size(76, 23);
+            lon_cords.TabIndex = 5;
+            lon_cords.Tag = "";
             // 
-            // label3
+            // button1
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(1327, 153);
-            label3.Name = "label3";
-            label3.Size = new Size(78, 32);
-            label3.TabIndex = 3;
-            label3.Text = "label3";
+            button1.Location = new Point(909, 696);
+            button1.Name = "button1";
+            button1.Size = new Size(115, 23);
+            button1.TabIndex = 9;
+            button1.Text = "Check weather";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
-            // label4
+            // lat_cords
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(917, 434);
-            label4.Name = "label4";
-            label4.Size = new Size(78, 32);
-            label4.TabIndex = 4;
-            label4.Text = "label4";
+            lat_cords.Location = new Point(813, 696);
+            lat_cords.Name = "lat_cords";
+            lat_cords.PlaceholderText = "lat";
+            lat_cords.Size = new Size(76, 23);
+            lat_cords.TabIndex = 10;
             // 
-            // label5
+            // lon_label
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(957, 491);
-            label5.Name = "label5";
-            label5.Size = new Size(78, 32);
-            label5.TabIndex = 5;
-            label5.Text = "label5";
+            lon_label.AutoSize = true;
+            lon_label.Location = new Point(617, 21);
+            lon_label.Name = "lon_label";
+            lon_label.Size = new Size(0, 15);
+            lon_label.TabIndex = 11;
             // 
-            // label6
+            // sort_asc
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(1016, 597);
-            label6.Name = "label6";
-            label6.Size = new Size(78, 32);
-            label6.TabIndex = 6;
-            label6.Text = "label6";
+            sort_asc.Location = new Point(656, 611);
+            sort_asc.Name = "sort_asc";
+            sort_asc.Size = new Size(111, 23);
+            sort_asc.TabIndex = 12;
+            sort_asc.Text = "Sortuj malejąco";
+            sort_asc.UseVisualStyleBackColor = true;
+            sort_asc.Click += sort_asc_Click;
+            // 
+            // sort_desc
+            // 
+            sort_desc.Location = new Point(796, 611);
+            sort_desc.Name = "sort_desc";
+            sort_desc.Size = new Size(111, 23);
+            sort_desc.TabIndex = 13;
+            sort_desc.Text = "Sortuj rosnąco";
+            sort_desc.UseVisualStyleBackColor = true;
+            sort_desc.Click += sort_desc_Click;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(83, 88);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.ScrollBars = ScrollBars.Vertical;
+            textBox2.Size = new Size(359, 517);
+            textBox2.TabIndex = 14;
+            // 
+            // data_base_label
+            // 
+            data_base_label.AutoSize = true;
+            data_base_label.Location = new Point(751, 48);
+            data_base_label.Name = "data_base_label";
+            data_base_label.Size = new Size(73, 15);
+            data_base_label.TabIndex = 15;
+            data_base_label.Text = "Baza danych";
+            // 
+            // loc_label
+            // 
+            loc_label.AutoSize = true;
+            loc_label.Location = new Point(213, 48);
+            loc_label.Name = "loc_label";
+            loc_label.Size = new Size(111, 15);
+            loc_label.TabIndex = 16;
+            loc_label.Text = "Aktualna lokalizacja";
+            // 
+            // lat_label
+            // 
+            lat_label.AutoSize = true;
+            lat_label.Location = new Point(708, 21);
+            lat_label.Name = "lat_label";
+            lat_label.Size = new Size(0, 15);
+            lat_label.TabIndex = 17;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2564, 1559);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            ClientSize = new Size(1036, 731);
+            Controls.Add(lat_label);
+            Controls.Add(loc_label);
+            Controls.Add(data_base_label);
+            Controls.Add(textBox2);
+            Controls.Add(sort_desc);
+            Controls.Add(sort_asc);
+            Controls.Add(lon_label);
+            Controls.Add(lat_cords);
+            Controls.Add(button1);
+            Controls.Add(lon_cords);
+            Controls.Add(city_name_label);
             Controls.Add(textBox1);
-            Margin = new Padding(6);
-            MaximumSize = new Size(2949, 1840);
-            MinimumSize = new Size(2558, 1502);
+            MaximumSize = new Size(1595, 883);
+            MinimumSize = new Size(1040, 507);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -128,11 +179,16 @@
         #endregion
 
         private TextBox textBox1;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
-        private Label label6;
+        private Label city_name_label;
+        private TextBox lon_cords;
+        private Button button1;
+        private TextBox lat_cords;
+        private Label lon_label;
+        private Button sort_asc;
+        private Button sort_desc;
+        private TextBox textBox2;
+        private Label data_base_label;
+        private Label loc_label;
+        private Label lat_label;
     }
 }

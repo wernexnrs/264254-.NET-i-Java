@@ -11,8 +11,8 @@ using Pogoda_264254;
 namespace Pogoda_264254.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240326210420_test")]
-    partial class test
+    [Migration("20240402143504_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace Pogoda_264254.Migrations
 
             modelBuilder.Entity("Pogoda_264254.WeatherData", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("PrimaryKey")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -37,6 +37,9 @@ namespace Pogoda_264254.Migrations
                     b.Property<int>("dt")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("id")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -47,14 +50,14 @@ namespace Pogoda_264254.Migrations
                     b.Property<int>("visibility")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("PrimaryKey");
 
                     b.ToTable("WeatherData");
                 });
 
             modelBuilder.Entity("Pogoda_264254.clouds", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("PrimaryKey")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -64,7 +67,7 @@ namespace Pogoda_264254.Migrations
                     b.Property<int>("all")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("PrimaryKey");
 
                     b.HasIndex("WeatherDataId")
                         .IsUnique();
@@ -74,20 +77,22 @@ namespace Pogoda_264254.Migrations
 
             modelBuilder.Entity("Pogoda_264254.coord", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("PrimaryKey")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("WeatherDataId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("lat")
-                        .HasColumnType("REAL");
+                    b.Property<float>("lat")
+                        .HasColumnType("REAL")
+                        .HasAnnotation("Relational:JsonPropertyName", "lat");
 
-                    b.Property<double>("lon")
-                        .HasColumnType("REAL");
+                    b.Property<float>("lon")
+                        .HasColumnType("REAL")
+                        .HasAnnotation("Relational:JsonPropertyName", "lon");
 
-                    b.HasKey("Id");
+                    b.HasKey("PrimaryKey");
 
                     b.HasIndex("WeatherDataId")
                         .IsUnique();
@@ -97,7 +102,7 @@ namespace Pogoda_264254.Migrations
 
             modelBuilder.Entity("Pogoda_264254.main", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("PrimaryKey")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -122,7 +127,7 @@ namespace Pogoda_264254.Migrations
                     b.Property<double>("temp_min")
                         .HasColumnType("REAL");
 
-                    b.HasKey("Id");
+                    b.HasKey("PrimaryKey");
 
                     b.HasIndex("WeatherDataId")
                         .IsUnique();
@@ -132,16 +137,19 @@ namespace Pogoda_264254.Migrations
 
             modelBuilder.Entity("Pogoda_264254.sys", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("PrimaryKey")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("WeatherDataId")
+                    b.Property<int>("WeatherDataId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("country")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("id")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("sunrise")
                         .HasColumnType("INTEGER");
@@ -152,7 +160,7 @@ namespace Pogoda_264254.Migrations
                     b.Property<int>("type")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("PrimaryKey");
 
                     b.HasIndex("WeatherDataId")
                         .IsUnique();
@@ -162,7 +170,7 @@ namespace Pogoda_264254.Migrations
 
             modelBuilder.Entity("Pogoda_264254.weather", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("PrimaryKey")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -181,7 +189,7 @@ namespace Pogoda_264254.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("PrimaryKey");
 
                     b.HasIndex("WeatherDataId");
 
@@ -190,7 +198,7 @@ namespace Pogoda_264254.Migrations
 
             modelBuilder.Entity("Pogoda_264254.wind", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("PrimaryKey")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -203,7 +211,7 @@ namespace Pogoda_264254.Migrations
                     b.Property<double>("speed")
                         .HasColumnType("REAL");
 
-                    b.HasKey("Id");
+                    b.HasKey("PrimaryKey");
 
                     b.HasIndex("WeatherDataId")
                         .IsUnique();
@@ -236,7 +244,9 @@ namespace Pogoda_264254.Migrations
                 {
                     b.HasOne("Pogoda_264254.WeatherData", null)
                         .WithOne("sys")
-                        .HasForeignKey("Pogoda_264254.sys", "WeatherDataId");
+                        .HasForeignKey("Pogoda_264254.sys", "WeatherDataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Pogoda_264254.weather", b =>
