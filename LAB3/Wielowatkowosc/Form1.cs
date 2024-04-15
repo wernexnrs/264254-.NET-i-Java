@@ -71,9 +71,10 @@ namespace Wielowatkowosc
                 stopwatch_HL.Stop();
                 time_taken_HL += stopwatch_HL.Elapsed.TotalMilliseconds;
 
-                //matrix_left_output.Text = HL.LeftMatrix.ToString();
-                //matrix_right_output.Text = HL.RightMatrix.ToString();
-                //matrix_text_output.Text = HL.ResultMatrix.ToString();
+                matrix_left_output.Text = HL.LeftMatrix.ToString();
+                matrix_right_output.Text = HL.RightMatrix.ToString();
+                
+                matrix_text_output.Text = HL.ResultMatrix.ToString();
             }
 
             execution_time_label_hl.Text = $"{Math.Round(time_taken_HL / count_number / 1000, 4)} s";

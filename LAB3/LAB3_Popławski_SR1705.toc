@@ -1,0 +1,3 @@
+\contentsline {chapter}{\numberline {1}Opis programu}{2}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Uzyskane dane z przeprowadzonych eksperymentów}{3}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Wykresy}{4}{chapter.3}%
