@@ -1,0 +1,141 @@
+﻿@page "/games/edit"
+@inject Zadanie2.Data.ApplicationDbContext DB
+@using Zadanie2.Components
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.Forms
+@rendermode InteractiveServer
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h4>Game</h4>
+<hr />
+@if (game is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="game" OnValidSubmit="UpdateGame" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <input type="hidden" name="game.Id" value="@game.Id" />
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <InputText id="title" @bind-Value="game.Title" class="form-control" />
+                    <ValidationMessage For="() => game.Title" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <InputText id="description" @bind-Value="game.Description" class="form-control" />
+                    <ValidationMessage For="() => game.Description" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="relasedate" class="form-label">Release Date:</label>
+                    <InputDate id="relasedate" @bind-Value="game.ReleaseDate" class="form-control" />
+                    <ValidationMessage For="() => game.ReleaseDate" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="rate" class="form-label">Rate:</label>
+                    <InputNumber id="rate" @bind-Value="game.Rate" class="form-control" />
+                    <ValidationMessage For="() => game.Rate" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Game Image:</label>
+                    <InputFile id="image" OnChange="OnImageUpload" />
+                    @if (!string.IsNullOrEmpty(game.ImageUrl))
+                    {
+                        <img src="@game.ImageUrl" alt="Game Image" class="img-thumbnail mt-3" style="max-width: 200px;" />
+                    }
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/games">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    private game? game;
+    private string? uploadedImagePath;
+
+    protected override async Task OnInitializedAsync()
+    {
+        game = await DB.game.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (game is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task OnImageUpload(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            // Define the path where the images will be saved
+            var folderPath = Path.Combine("wwwroot", "images", "games");
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            // Generate a unique file name and save the uploaded file
+            var file = e.File;
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.Name)}";
+            var filePath = Path.Combine(folderPath, fileName);
+
+            // Save the file to the server
+            await using var fileStream = new FileStream(filePath, FileMode.Create);
+            await file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024).CopyToAsync(fileStream); // Limit to 10 MB
+
+            // Store the relative path for later database storage
+            uploadedImagePath = $"/images/games/{fileName}";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Image upload error: {ex.Message}");
+        }
+    }
+
+    private async Task UpdateGame()
+    {
+        if (game is not null)
+        {
+            // Update the game's image URL if a new image has been uploaded
+            if (!string.IsNullOrEmpty(uploadedImagePath))
+            {
+                game.ImageUrl = uploadedImagePath;
+            }
+
+            // Update the game entity in the database
+            DB.game.Update(game);
+            await DB.SaveChangesAsync();
+
+            // Redirect to the games list after updating
+            NavigationManager.NavigateTo("/games");
+        }
+    }
+
+    bool GameExists(int id)
+    {
+        return DB.game.Any(e => e.Id == id);
+    }
+}

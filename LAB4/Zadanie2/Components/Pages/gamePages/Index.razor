@@ -1,0 +1,37 @@
+﻿@page "/games"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject Zadanie2.Data.ApplicationDbContext DB
+@using Zadanie2.Components
+@rendermode InteractiveServer
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="games/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="games" SortBy="@defaultSortProperty" SortDirection="defaultSortDirection">
+    <PropertyColumn Property="game => game.Title" Sortable="true" Title="Title" />
+    <!--<PropertyColumn Property="game => game.Description" Sortable="true" Title="Description" />-->
+    <PropertyColumn Property="game => game.ReleaseDate" Sortable="true" Title="Release Date" />
+    <PropertyColumn Property="game => game.Rate" Sortable="true" Title="Rate" />
+
+    <TemplateColumn Context="game">
+        <a href="@($"games/edit?id={game.Id}")">Edit</a> |
+        <a href="@($"games/details?id={game.Id}")">Details</a> |
+        <a href="@($"games/delete?id={game.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private IQueryable<game>? games;
+
+    private Func<game, object>? defaultSortProperty = g => g.Title;
+    private SortDirection defaultSortDirection = SortDirection.Ascending;
+
+    protected override void OnInitialized()
+    {
+        games = DB.game;
+    }
+}
